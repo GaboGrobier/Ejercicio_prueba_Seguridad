@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        .button {
+            padding: 15px 25px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         <!--Token: YWRtaW5fdXNlcjpKb3NlR29tZXomcGFzc3dvcmQ6ZG9uam9zZWdvbWV6MjAyNA==  -->
+        <img src="https://i.ibb.co/yXxy0QZ/un-bazar-de-barrio-llamado-don-jose-que-vende-comidas.jpg" alt="DonJose" border="0" /></a>
+        <h1>Bienvenido al local de Don José </h1>
+        <a href="{% url 'login_vulnerable' %}" class="button">
+            Iniciar Sesión
+        </a>
+    </div>
+</body>
+</html>

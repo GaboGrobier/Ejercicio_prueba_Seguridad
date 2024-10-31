@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don José - Inicio de Sesión</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f3e9;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Caja de login */
+        .login-box {
+            background-color: #ffecd2;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ffa726;
+        }
+        
+        /* Título de la tienda */
+        .login-box h2 {
+            color: #e65100;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Campos de entrada */
+        .login-box label {
+            font-weight: bold;
+            color: #333;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Botón de login */
+        .login-box button {
+            background-color: #ff7043;
+            color: white;
+            padding: 12px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .login-box button:hover {
+            background-color: #e64a19;
+        }
+
+        /* Pie de página */
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Bienvenido a Don José</h2>
+            <p>La tienda de tu barrio, alegre y confiable.</p>
+            <form action="{% url 'login_vulnerable' %}" method="POST">
+                {% csrf_token %}
+               
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Ingresar</button>
+            </form>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Don José - La Tienda de tu Barrio</p>
+        </div>
+    </div>
+</body>
+</html>

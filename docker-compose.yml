@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  security:
+    image: ubuntu:rolling
+    ports:
+      - "80:8000" 
+    volumes:
+      - .:/home/ubuntu/donjose 
+    networks:
+      - puente
+    working_dir: /home/ubuntu/donjose
+    command: /bin/bash -c "
+      apt-get update &&
+      apt-get install -y python3 python3-pip python3-venv && 
+      touch pista &&
+      echo 'aqui agrega la pista cifrada con cyberchef' > pista &&
+      mkdir /opt/passwords &&
+      touch /opt/passwords/secreto &&
+      echo 'aqui agrega la llave final cifrada en cyberchef'> /opt/passwords/secreto &&
+      python3 -m venv venv &&
+      source venv/bin/activate &&
+      pip install -r requerimientos.txt &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+
+networks:
+  puente:
+    driver: bridge
+

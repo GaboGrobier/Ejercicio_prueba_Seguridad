@@ -1,0 +1,37 @@
+name: EjercicioSeguridad_p3V3
+
+on: 
+  push:
+    branches:
+      - TuRamaDespligue #cambia esto a la rama que quieras que escuche para desplegar 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker docker-compose
+
+      - name: Add SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PASSWORD_SERVER }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Copy files to server
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" ./ ${{ secrets.USER_SERVER }}@${{ secrets.SERVER }}:/home/ubuntu/donjose/
+
+      - name: SSH commands to deploy
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.USER_SERVER }}@${{ secrets.SERVER }} << 'EOF'
+          cd /home/ubuntu/donjose/
+          docker compose down
+          docker compose up -d --build
+          EOF

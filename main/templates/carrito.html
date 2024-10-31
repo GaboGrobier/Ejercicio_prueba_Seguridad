@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Don José</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #faf4e8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: #f7a440;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Lista de productos */
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .product {
+            background-color: #fff9ec;
+            border: 1px solid #ffcc80;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            color: #e65100;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Caja de comentarios */
+        .comment-box {
+            background-color: #fff8e1;
+            border: 2px solid #ffab40;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-box h2 {
+            color: #ff7043;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .comment-box textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .comment-box button {
+            background-color: #ff7043;
+            color: white;
+            padding: 12px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .comment-box button:hover {
+            background-color: #e64a19;
+        }
+
+        /* Pie de página */
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            padding: 10px;
+            background-color: #f7a440;
+            width: 100%;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>Bienvenido a Don José - Carrito de Compras</header>
+
+    <div class="main-container">
+        <div class="product-list">
+            {% for product in products %}
+                <div class="product">
+                    <h3>{{ product.strMeal }}</h3>
+                    <img src="{{ product.strMealThumb }}" alt="{{ product.strMeal }}">
+                    <p>Descripción: {{ product.strInstructions|slice:":150" }}...</p>
+                </div>
+            {% empty %}
+                <p>No hay productos disponibles.</p>
+            {% endfor %}
+        </div>
+
+        <div class="comment-box">
+            <h2>Dejar un comentario sobre el producto</h2>
+            <form action="{% url 'carrito_view' %}" method="POST">
+                {% csrf_token %}
+                <textarea name="comentario" placeholder="Deje su comentario "></textarea>
+                <button type="submit">Enviar comentario</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>&copy; 2024 Don José - La Tienda de tu Barrio</footer>
+</body>
+</html>
